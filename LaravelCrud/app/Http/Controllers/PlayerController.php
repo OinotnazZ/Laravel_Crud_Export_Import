@@ -60,7 +60,8 @@ class PlayerController extends Controller
             'name'        => 'required',
             'address'     => 'required',
             'description' => 'required',
-            'retired'     => 'required|boolean'
+            'retired'     => 'required|boolean',
+            'image'       => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
         /*Player::create($request->all());*/
@@ -70,23 +71,36 @@ class PlayerController extends Controller
         Player::create($input);
         */
 
-        /* Example 3 */
+        /* Example 3
         Player::create([
         'name'         => $request->name,
         'address'      => $request->address,
         'description'  => $request->description,
         'retired'      => $request->retired
         ]);
+        */
 
 
-        /* Example 4
+        /* Example 4 */
          $player               = new Player();
          $player->name         = $request->name;
          $player->address      = $request->address;
          $player->description  = $request->description;
          $player->retired      = $request->retired;
          $player->save();
-         */
+
+        //If we have an image file, we store it, and move it in the database
+        if ($request->file('image')) {
+            // Get Image File
+            $imagePath = $request->file('image');
+            // Define Image Name
+            $imageName = $player->id . '_' . time() . '_' . $imagePath->getClientOriginalName();
+            // Save Image on Storage
+            $path = $request->file('image')->storeAs('images/players/' . $player->id, $imageName, 'public');
+            //Save Image Path
+            $player->image = $path;
+        }
+        $player->save();
 
         return redirect('players')->with('status','Player created successfully!');
     }

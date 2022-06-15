@@ -51,18 +51,13 @@
         </table>
         {{$players->links()}}
 
-        <form action="{{url('players/truncate')}}" method="GET">
-            <button type="submit" class="btn btn-danger">Delete All</button>
-        </form>
-        <p></p>
-        <a href="{{url('players/export')}}" class="btn btn-dark">
-            Export Players
-        </a>
-        <p></p>
-        <form action="{{url('players/import')}}" method="POST" enctype="multipart/form-data">
+        <form class="btn btn-dark" action="{{url('players/import')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="file" name="file" class="form-control">
+            <br>
             <button type="submit" class="btn btn-primary">Import Players</button>
+            <a class="btn btn-light" href="{{url('players/export')}}"> Export Players</a>
+            <form action="{{url('players/truncate')}}" method="GET"><button type="submit" class="btn btn-danger">Delete Players</button></form>
         </form>
 
     </div>
