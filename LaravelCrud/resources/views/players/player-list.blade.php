@@ -14,6 +14,7 @@
             <thead>
             <tr>
                 <th scope="col">#</th>
+                <th scope="col">Image</th>
                 <th scope="col">Name</th>
                 <th scope="col">Address</th>
                 <th scope="col">Retired</th>
@@ -24,6 +25,15 @@
             @foreach($players as $player)
                 <tr>
                     <td> {{$player->id}}</td>
+                    <td>
+                        @if ($player->image)
+                            <img class="w-100 img-responsive" src="{{ asset('storage/'.$player->image) }}" alt="" title=""></a>
+                        @else
+                            <p>
+                                No Image
+                            </p>
+                        @endif
+                    </td>
                     <td> {{$player->name}}</td>
                     <td> {{$player->address}}</td>
                     <td>@if ($player->retired)
@@ -36,12 +46,15 @@
 
                         @endif
                     </td>
-                    <td><a href="{{url('players/' . $player->id)}}"><button type="button" class="btn btn-light">Show</button></a>
+                    <td>
+                        <a href="{{url('players/' . $player->id)}}"><button type="button" class="btn btn-success"> Show </button></a>
+                        <p></p>
                         <a href="{{url('players/' . $player->id . '/edit')}}" type="button"class="btn btn-light">Edit</a>
+                        <p></p>
                         <form action="{{url('players/' . $player->id)}}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-light">Delete</button>
+                            <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                     </td>
 
@@ -49,17 +62,20 @@
             @endforeach
             </tbody>
         </table>
-        {{$players->links()}}
 
+        {{$players->links()}}
         <form class="btn btn-dark" action="{{url('players/import')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="file" name="file" class="form-control">
             <br>
-            <button type="submit" class="btn btn-primary">Import Players</button>
-            <a class="btn btn-light" href="{{url('players/export')}}"> Export Players</a>
-            <form action="{{url('players/truncate')}}" method="GET"><button type="submit" class="btn btn-danger">Delete Players</button></form>
+            <button type="submit" class="btn btn-success">Import Players</button>
         </form>
-
+        <form action="{{url('players/export')}}">
+            <button type="submit" class="btn btn-primary">Export Players</button>
+        </form>
+        <form action="{{url('players/truncate')}}" method="GET">
+            <button type="submit" class="btn btn-danger">Delete Players</button>
+        </form>
     </div>
 @endsection
 <script>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\UsersExport;
 use App\Imports\UsersImport;
+use Illuminate\Support\Facades\Storage;
 
 
 class PlayerController extends Controller
@@ -136,6 +137,7 @@ class PlayerController extends Controller
      */
     public function update(Request $request, Player $player)
     {
+        //Storage::delete("storage/."$player->images);
         $player->update($request->all());
         return redirect('players')->with('status','Player edited successfully!');
     }
@@ -148,6 +150,9 @@ class PlayerController extends Controller
      */
     public function destroy(Player $player)
     {
+        Storage::deleteDirectory('public/images/players/' . $player->id);
+        //Storage::delete('public/' . $player->image);
+
         $player->delete();
 
         return redirect('players')->with('status','Player deleted successfully!');
