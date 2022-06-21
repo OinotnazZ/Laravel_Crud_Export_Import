@@ -1,7 +1,7 @@
 <form method="POST" action="{{ url('players') }}" enctype="multipart/form-data">
     @csrf
     <div class="form-group col-xl-5 col-lg-6 col-md-8 col-sm-12 mx-auto text-left form p-4">
-        <h1>Add Player</h1>
+        <h1 class="text-white bg-dark text-center">Add Player</h1>
 
         <div class="form-group">
             <label for="name">Image</label>

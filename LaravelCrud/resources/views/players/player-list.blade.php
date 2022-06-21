@@ -1,7 +1,7 @@
 @extends('master.main')
 @section('content')
     <div class="table">
-        <h1>Players</h1>
+        <h1 class="text-center">PLAYERS</h1>
         @if (session('status'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ session('status') }}
@@ -46,10 +46,10 @@
 
                         @endif
                     </td>
-                    <td>
-                        <a href="{{url('players/' . $player->id)}}"><button type="button" class="btn btn-success"> Show </button></a>
+                    <td class="d-flex">
+                        <a href="{{url('players/' . $player->id)}}" class="mr-3"><button type="button" class="btn btn-secondary"> Show </button></a>
                         <p></p>
-                        <a href="{{url('players/' . $player->id . '/edit')}}" type="button"class="btn btn-light">Edit</a>
+                        <a href="{{url('players/' . $player->id . '/edit')}}" type="button"class="btn btn-secondary mr-3">Edit</a>
                         <p></p>
                         <form action="{{url('players/' . $player->id)}}" method="POST">
                             @csrf
@@ -63,19 +63,29 @@
             </tbody>
         </table>
 
-        {{$players->links()}}
+        <div class="d-flex justify-content-around">
+            {{$players->links()}}
+
+            <form action="{{url('players/truncate')}}" method="GET">
+                <button type="submit" class="btn btn-danger">Delete All Players</button>
+            </form>
+        </div>
+
         <form class="btn btn-dark" action="{{url('players/import')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="file" name="file" class="form-control">
             <br>
             <button type="submit" class="btn btn-success">Import Players</button>
         </form>
+
         <form action="{{url('players/export')}}">
             <button type="submit" class="btn btn-primary">Export Players</button>
         </form>
+
         <form action="{{url('players/truncate')}}" method="GET">
             <button type="submit" class="btn btn-danger">Delete Players</button>
         </form>
+
     </div>
 @endsection
 <script>

@@ -1,8 +1,8 @@
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-12">
-            <p class="text-left w-100">
-                António Silva
+        <div class="col-lg-12">
+            <p class="text-center text-white bg-dark">
+                ANTÓNIO SILVA - LARAVEL CRUD - 2022 ©
             </p>
         </div>
     </div>

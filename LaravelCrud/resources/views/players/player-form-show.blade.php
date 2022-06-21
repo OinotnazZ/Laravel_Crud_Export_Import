@@ -1,6 +1,6 @@
 <fieldset disabled>
     <div class="form-group col-xl-5 col-lg-6 col-md-8 col-sm-12 mx-auto text-left form p-4">
-        <h1>Show Player</h1>
+        <h1 class="text-white text-center bg-dark">Show Player</h1>
         <div class="form-group">
             <label for="name">Name</label>
             <input
